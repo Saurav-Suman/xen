@@ -42,7 +42,7 @@ func (r *DisbursementsRepository) GetRef(id string) (*models.Disbursements, erro
 	return &disbursement, err
 }
 
-func (r *DisbursementsRepository) UpdateStatus(id string, val int) (*models.Disbursements, error) {
+func (r *DisbursementsRepository) UpdateStatus(id string, val string) (*models.Disbursements, error) {
 	var disbursement models.Disbursements
 	where := models.Disbursements{}
 	where.RefNumber = id

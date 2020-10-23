@@ -60,19 +60,19 @@ func Initiate(c *gin.Context) {
 		log.Println(err)
 	} else {
 		fmt.Println(disbursement)
-		if disbursement.Status == 1 {
-			disbursementdata, err := s.UpdateStatus(disbursement.RefNumber, 2)
+		if disbursement.Status == "CREATED" {
+			disbursementdata, err := s.UpdateStatus(disbursement.RefNumber, "LOCKED")
 			if err != nil {
 				http_err.NewError(c, 400, errors.New("INTERNAL_ERROR"))
 				log.Println(err)
 			}
 			c.JSON(http.StatusOK, disbursementdata)
-		} else if disbursement.Status == 2 {
+		} else if disbursement.Status == "LOCKED" {
 			http_err.NewError(c, 400, errors.New("LOCKED"))
 			log.Println(err)
 			c.Abort()
 			return
-		} else if disbursement.Status == 3 {
+		} else if disbursement.Status == "EXPIRED" {
 			http_err.NewError(c, 400, errors.New("EXPIRED"))
 			log.Println(err)
 			c.Abort()
@@ -99,14 +99,14 @@ func Commit(c *gin.Context) {
 	} else {
 		fmt.Println(disbursement.Status)
 		fmt.Println(disbursement)
-		if disbursement.Status == 2 {
-			disbursementdata, err := s.UpdateStatus(commitInput.RefNumber, 4)
+		if disbursement.Status == "LOCKED" {
+			disbursementdata, err := s.UpdateStatus(commitInput.RefNumber, "COMMITED")
 			if err != nil {
 				http_err.NewError(c, 400, errors.New("INTERNAL_ERROR"))
 				log.Println(err)
 			}
 			c.JSON(http.StatusOK, disbursementdata)
-		} else if disbursement.Status == 1 {
+		} else if disbursement.Status == "CREATED" {
 			http_err.NewError(c, 400, errors.New("CASH_DISBURSEMENT_NOT_FOUND"))
 			log.Println(err)
 			c.Abort()

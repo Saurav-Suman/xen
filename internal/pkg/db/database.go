@@ -39,7 +39,7 @@ func SetupDB() {
 			fmt.Println("db err: ", err)
 		}
 	} else if driver == "postgres" { // POSTGRES
-		db, err = gorm.Open("postgres", "host="+host+" port="+port+" user="+username+" dbname="+database+"  sslmode=disable password="+password)
+		db, err = gorm.Open("postgres", "host="+host+" port="+port+" user="+username+" dbname="+database+"  sslmode=disable  password="+password)
 		if err != nil {
 			fmt.Println("db err: ", err)
 		}
