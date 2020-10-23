@@ -43,6 +43,8 @@ type CommitDisbursement struct {
 4 - COMMITED
 */
 
+var map[int]string{1:"CREATED",2:"LOCKED",3:"EXPIRED",4:"COMMITED"}
+
 func Initiate(c *gin.Context) {
 	s := persistence.DisbursementsRepository{}
 	var initiateInput InitiateDisbursement
